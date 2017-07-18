@@ -1,0 +1,4 @@
+{
+  "db": "mongodb://mebegu:1cebarnet1@ds034797.mlab.com:34797/sec_research",
+  "port": "5567"
+}
