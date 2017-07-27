@@ -3,6 +3,7 @@ const multer  = require('multer');
 const controller = require('./controller');
 const trialModel = require('./models/trial');
 const whitelistModel = require('./models/whitelist');
+const difflistModel = require('./models/difflist');
 const query = require('./tools/query');
 
 var storage = multer.diskStorage({
@@ -34,7 +35,17 @@ const whitelist = function(req,res,next){
     req.args = {model: whitelistModel,
             getSelect: {},
             listSelect:{},
-            logType: "Whitelist"
+            logType: "Wihtelist"
+    }
+    next();
+}
+
+const difflist = function(req,res,next){
+    console.log('Difflist request received');
+    req.args = {model: difflistModel,
+            getSelect: {},
+            listSelect:{},
+            logType: "Difflist"
     }
     next();
 }
@@ -46,6 +57,8 @@ module.exports = function(app) {
   routes.get('/trial/',         trial,  query.list);
   routes.get('/whitelist/:id',  whitelist,  query.get);
   routes.get('/whitelist/',     whitelist,  query.list);
+  routes.get('/difflist/:id',  difflist,  query.get);
+  routes.get('/difflist/',     difflist,  query.list);
   app.use('/',   routes);
 }
 

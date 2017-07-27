@@ -14,6 +14,7 @@ exports.upload = function(req,res){
     experiment.detail   = req.body.detail;
     experiment.clean   = req.body.clean;
     const total = req.body.total;
+    const ip = req.body.localIP;
     let   counter = 0;
     console.log(experiment+"\n"+total+"Packets Exists");
 
@@ -22,9 +23,9 @@ exports.upload = function(req,res){
     .on('json',(packet)=>{
         console.log(packet)
         if(experiment.clean){
-            whitelist.addPacket(packet)
+            whitelist.addPacket(packet, ip, experiment.no )
         }else{
-            difflist.addPacket(packet)
+            difflist.addPacket(packet, ip, experiment.no )
         }
         experiment.packets.push(packet)
         counter++
